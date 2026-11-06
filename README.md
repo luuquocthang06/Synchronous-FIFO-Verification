@@ -19,14 +19,14 @@ This is an educational project built step by step while learning digital design 
 sync-fifo-verification/
 ├── README.md
 ├── .gitignore
-├── src/
+├── main design/
 │   └── sync_fifo.v                 # design under test (with switchable bugs)
-├── tb/
+├── testbench_designs/
 │   ├── tb_sync_fifo_directed.v     # directed testbench (7 tests)
 │   ├── tb_random.sv                # random testbench + scoreboard (top: tb_random)
 │   ├── fifo_sva.sv                 # SystemVerilog assertions (passive checker)
 │   └── fifo_cov.sv                 # functional coverage (passive collector)
-└── sim/                            # waveform and transcript screenshots
+└── testbech_waveforms/                            # waveform and transcript screenshots
 ```
 
 ## Design under test
@@ -141,6 +141,11 @@ The FIFO level is split into 5 bins (`zero`, `low`, `mid`, `high`, `full`) and c
 
 Simulator: ModelSim Intel FPGA Edition 2020.1.
 
+![BUG1 first error](testbench_waveforms/Bug_1.png)
+![BUG2 first error](testbench_waveforms/Bug_2.png)
+![BUG3 first error](testbench_waveforms/Bug_3.png)
+![BUG4 first error](testbench_waveforms/Bug_4.png)
+![BUG5 first error](testbench_waveforms/Bug_5.png)
 ### Correct design
 
 | Testbench | Result |
@@ -179,12 +184,12 @@ From the repository root:
 vlib work
 
 # directed testbench (top: tb)
-vlog src/sync_fifo.v tb/tb_sync_fifo_directed.v
+vlog "main design/sync_fifo.v" testbench_designs/tb_sync_fifo_directed.v
 vsim -voptargs=+acc work.tb
 run -all
 
-# random testbench with scoreboard, assertions and coverage (top: tb_random)
-vlog -sv src/sync_fifo.v tb/fifo_sva.sv tb/fifo_cov.sv tb/tb_random.sv
+# random testbench (top: tb_random)
+vlog -sv "main design/sync_fifo.v" testbench_designs/fifo_sva.sv testbench_designs/fifo_cov.sv testbench_designs/tb_random.sv
 vsim -voptargs=+acc work.tb_random
 run -all
 ```
@@ -196,7 +201,7 @@ At the end of the transcript the random testbench prints statistics, the scorebo
 Add a define at compile time, then re-run `vsim`:
 
 ```
-vlog -sv +define+BUG1 src/sync_fifo.v tb/fifo_sva.sv tb/fifo_cov.sv tb/tb_random.sv
+vlog -sv +define+BUG1 "main design/sync_fifo.v" tb/fifo_sva.sv tb/fifo_cov.sv tb/tb_random.sv
 ```
 
 ### Compile-time options
