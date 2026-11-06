@@ -142,10 +142,19 @@ The FIFO level is split into 5 bins (`zero`, `low`, `mid`, `high`, `full`) and c
 Simulator: ModelSim Intel FPGA Edition 2020.1.
 
 ![BUG1 first error](testbench_waveforms/Bug_1.png)
+Bug 1 wave form
+
 ![BUG2 first error](testbench_waveforms/Bug_2.png)
+Bug 2 wave form
+
 ![BUG3 first error](testbench_waveforms/Bug_3.png)
+Bug 3 wave form
+
 ![BUG4 first error](testbench_waveforms/Bug_4.png)
+Bug 4 wave form
+
 ![BUG5 first error](testbench_waveforms/Bug_5.png)
+Bug 5 wave form
 ### Correct design
 
 | Testbench | Result |
